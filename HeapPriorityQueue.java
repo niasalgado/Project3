@@ -17,6 +17,7 @@ import java.util.Comparator;
 public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     /** primary collection of priority queue entries */
     protected ArrayList<Entry<K, V>> heap = new ArrayList<>();
+    // DefaultComparator<K> comp;
 
     /**
      * Creates an empty priority queue based on the natural ordering of its keys.
@@ -63,17 +64,35 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
      * property.
      */
     protected void upheap(int j) {
-        
        //  TO DO
-
+        while(j > 0) {
+            int p = parent(j);
+            if (compare(heap.get(j), heap.get(p)) >= 0)
+                break;
+            swap(j, p);
+            j = p;
+        }
     }
 
     /**
      * Moves the entry at index j lower, if necessary, to restore the heap property.
      */
     protected void downheap(int j) {
-        
         // TO DO
+        while (hasLeft(j)) {
+            int smallIndex = left(j);
+
+            if (hasRight(j)) {
+                if (compare(heap.get(left(j)), heap.get(right(j))) > 0)
+                    smallIndex = right(j);
+
+                if (compare(heap.get(j), heap.get(smallIndex)) < 0)
+                    break;
+
+                swap(j, smallIndex);
+                j = smallIndex;
+            }
+        }
     }
 
     // public methods

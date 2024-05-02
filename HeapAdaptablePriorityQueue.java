@@ -74,23 +74,28 @@ public class HeapAdaptablePriorityQueue<K, V> extends HeapPriorityQueue<K, V> im
     /** Removes the given entry from the priority queue. */
     @Override
     public void remove(Entry<K, V> entry) throws IllegalArgumentException {
-        AdaptablePQEntry<K, V> locator = validate(entry);
-       
         // TO DO
+        AdaptablePQEntry<K, V> locator = validate(entry); // finds entry
+        int j = locator.getIndex();
+        swap(j, heap.size() - 1); // swaps entry to last position and removes it
+        heap.remove(heap.size() -1);
+        bubble(j); // bubbles entry to correct position
     }
 
     /** Replaces the key of an entry. */
     @Override
     public void replaceKey(Entry<K, V> entry, K key) throws IllegalArgumentException {
-        
         // TO DO
+        AdaptablePQEntry<K, V> locator = validate(entry); // finds entry
+        locator.setKey(key); // changes key
+        bubble(locator.getIndex()); // moves key if necessary
     }
 
     /** Replaces the value of an entry. */
     @Override
     public void replaceValue(Entry<K, V> entry, V value) throws IllegalArgumentException {
-       
         // TO DO
-
+        AdaptablePQEntry<K, V> locator = validate(entry); // finds entry
+        locator.setValue(value); // sets new value
     }
 }
